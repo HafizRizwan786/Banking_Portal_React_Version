@@ -1,0 +1,216 @@
+/* ===== CSS Custom Properties (Design Tokens) ===== */
+:root {
+  --color-primary: #0c5930;
+  --color-primary-dark: #116e3c;
+  --color-primary-light: #c9e8d7;
+  --color-primary-accent: #48b37a;
+  --color-primary-hover: #7ddfab;
+
+  --color-white: #ffffff;
+  --color-background: #F8FAFC;
+  --color-text: #000000;
+  --color-text-light: rgb(80, 77, 77);
+  --color-text-muted: rgb(145, 143, 143);
+  --color-text-subtle: rgb(102, 102, 102);
+  --color-text-table: rgb(88, 87, 87);
+
+  --color-danger: #e53e3e;
+  --color-success: #0c5930;
+  --color-warning: #dd6b20;
+  --color-info: #3182ce;
+
+  --color-border: #818181;
+  --color-border-light: rgb(186, 186, 186);
+  --color-shadow: rgb(211, 210, 210);
+  --color-shadow-light: rgb(182, 179, 179);
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 1rem;
+  --radius-full: 50%;
+
+  --shadow-sm: 0 0 0.5rem var(--color-shadow);
+  --shadow-md: 0 0 1rem var(--color-shadow);
+  --shadow-lg: 0 0 1.5rem var(--color-shadow-light);
+
+  --transition-default: all 0.3s ease-in-out;
+
+  --z-header: 1000;
+  --z-popup: 2000;
+  --z-toast: 3000;
+}
+
+/* ===== CSS Reset ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* ===== Toast Notifications ===== */
+.toast-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast-success { background-color: var(--color-success); }
+.toast-error { background-color: var(--color-danger); }
+.toast-warning { background-color: var(--color-warning); }
+.toast-info { background-color: var(--color-info); }
+
+.toast-icon { font-size: 1.2rem; flex-shrink: 0; }
+.toast-message { flex: 1; }
+
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 1rem;
+  opacity: 0.7;
+  padding: 0;
+}
+
+.toast-close:hover { opacity: 1; }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ===== Error Boundary ===== */
+.error-boundary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.error-boundary-content {
+  text-align: center;
+  padding: 3rem;
+}
+
+.error-boundary-icon {
+  font-size: 4rem;
+  color: var(--color-warning);
+  margin-bottom: 1.5rem;
+}
+
+.error-boundary-content h1 {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.error-boundary-content p {
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+}
+
+.error-reset-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.error-reset-btn:hover { opacity: 0.9; }
+
+/* ===== 404 Page ===== */
+.not-found-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.not-found-content {
+  text-align: center;
+  padding: 3rem;
+}
+
+.not-found-code {
+  font-size: 8rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.not-found-content h2 {
+  font-size: 2rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.not-found-content p {
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+}
+
+.not-found-link {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.8rem 2rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.not-found-link:hover { opacity: 0.9; }
