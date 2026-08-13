@@ -100,21 +100,3 @@ export const updateBalance = (id, type, amount) => {
     return null;
   }
 };
-
-export const updateUserProfileImage = (userId, newImage) => {
-  try {
-    const data = safeJsonParse(localStorage.getItem(STORAGE_KEYS.USERS), []);
-
-    const updatedUsers = data.map(user => {
-      if (user.id === userId) {
-        return { ...user, profileImage: newImage };
-      }
-      return user;
-    });
-
-    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(updatedUsers));
-    return updatedUsers.find(u => u.id === userId) || null;
-  } catch {
-    return null;
-  }
-};

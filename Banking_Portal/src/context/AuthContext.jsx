@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback } from 'react';
 import { STORAGE_KEYS } from '../utils/constants';
+import { hashPassword } from '../utils/storage';
 
 const AuthContext = createContext(null);
 
@@ -27,11 +28,43 @@ export function AuthProvider({ children }) {
     setUser(null);
   }, []);
 
-  const updateUser = useCallback((updatedData) => {
-    localStorage.setItem(STORAGE_KEYS.LOGGED_IN_USER, JSON.stringify(updatedData));
-    setUser(updatedData);
+
+  const updateUser = useCallback(async (updatedData, passwordChanged = false) => {
+    const users = JSON.parse(
+        localStorage.getItem(STORAGE_KEYS.USERS)
+    ) || [];
+
+    let finalUser = { ...updatedData };
+
+    // Sirf tab hash karo jab NEW password diya gaya ho
+    if (passwordChanged) {
+        finalUser.password = await hashPassword(updatedData.password);
+    }
+
+    const updatedUsers = users.map((usr) => {
+        if (usr.id === finalUser.id) {
+            return finalUser;
+        }
+
+        return usr;
+    });
+
+    localStorage.setItem(
+        STORAGE_KEYS.USERS,
+        JSON.stringify(updatedUsers)
+    );
+
+    localStorage.setItem(
+        STORAGE_KEYS.LOGGED_IN_USER,
+        JSON.stringify(finalUser)
+    );
+
+    setUser(finalUser);
+
+    return true;
   }, []);
 
+  
   return (
     <AuthContext.Provider value={{ user, login, logout, updateUser, isAuthenticated: !!user }}>
       {children}

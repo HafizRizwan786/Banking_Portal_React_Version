@@ -2,7 +2,6 @@ import { useState, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
-import { updateUserProfileImage } from "../utils/storage";
 import { DASHBOARD_NAV_LINKS } from "../utils/constants";
 
 function DashboardNavbar({ onClickTransaction }) {
@@ -14,7 +13,7 @@ function DashboardNavbar({ onClickTransaction }) {
     const fileInputRef = useRef(null);
     const [profileImg, setProfileImg] = useState(user?.profileImage || "/images/default_user.png");
 
-    const handleImageChange = (e) => {
+    const handleImageChange =(e) => {
         const file = e.target.files[0];
         if (!file) return;
 
@@ -29,11 +28,8 @@ function DashboardNavbar({ onClickTransaction }) {
             const newImage = reader.result;
             setProfileImg(newImage);
 
-            const updatedUser = updateUserProfileImage(user.id, newImage);
-            if (updatedUser) {
-                updateUser({ ...user, profileImage: newImage });
-                showToast('Profile image updated!', 'success');
-            }
+            updateUser({ ...user, profileImage: newImage });
+            showToast('Profile image updated!', 'success');
         };
         reader.readAsDataURL(file);
     };
@@ -108,6 +104,12 @@ function DashboardNavbar({ onClickTransaction }) {
                                 <i className="fa-solid fa-circle-plus" style={{ color: "white" }}></i>
                                 &nbsp;&nbsp;Add Transaction
                             </button>
+                        </li>
+                        <li>
+                            <Link to='/profile'>
+                                <i className="fa-solid fa-user-pen" style={{ color: "white" }}></i>
+                                &nbsp;&nbsp;Profile
+                            </Link>
                         </li>
                         <li id="logout" onClick={handleLogout}>
                             <Link to='/'>

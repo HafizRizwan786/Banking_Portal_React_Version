@@ -10,6 +10,8 @@ const SignUp = lazy(() => import('./pages/SignUp'))
 const Login = lazy(() => import('./pages/Login'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+const Profile = lazy(()=> import('./pages/Profile'))
+
 
 // Loading fallback component
 function PageLoader() {
@@ -42,21 +44,31 @@ function App() {
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route path='/' element={<Home />} />
+
         <Route path='/signup' element={
           <GuestRoute>
             <SignUp />
           </GuestRoute>
         } />
+
         <Route path='/login' element={
           <GuestRoute>
             <Login />
           </GuestRoute>
         } />
+
         <Route path='/dashboard' element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
         } />
+
+        <Route path='/profile' element={
+          <ProtectedRoute>
+            <Profile/>
+          </ProtectedRoute>
+        }/>
+
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Suspense>

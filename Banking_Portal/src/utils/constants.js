@@ -44,7 +44,6 @@ export const NAV_LINKS = [
 export const DASHBOARD_NAV_LINKS = [
   { icon: 'fa-wallet', label: 'My Loans', href: '#loan' },
   { icon: 'fa-clock-rotate-left', label: 'Transaction History', href: '#history' },
-  { icon: 'fa-gear', label: 'Settings', href: '#settings' },
 ];
 
 // Password config
