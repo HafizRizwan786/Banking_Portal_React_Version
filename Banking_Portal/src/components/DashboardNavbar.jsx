@@ -53,7 +53,7 @@ function DashboardNavbar({ onClickTransaction }) {
         <header>
             <div className="header-contain">
                 <div className="bname">
-                    <h1>Banking Portal</h1>
+                    <h1>{user?.bank.toUpperCase() + " Portal" || "Banking Portal"}</h1>
                 </div>
 
                 <button

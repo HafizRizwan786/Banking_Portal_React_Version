@@ -2,11 +2,12 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { storeUser } from "../utils/storage"
 import { useToast } from "../context/ToastContext"
-import { validateEmail, validatePassword, validateName } from "../utils/validation"
+import { validateEmail, validatePassword, validateName, validateBank} from "../utils/validation"
 
 function SignUp() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState('');
+    const [bank, setBank] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +24,9 @@ function SignUp() {
 
         const emailVal = validateEmail(email);
         if (!emailVal.valid) newErrors.email = emailVal.message;
+
+        const bankVal = validateBank(bank);
+        if (!bankVal.valid) newErrors.bank = bankVal.message;
 
         const passVal = validatePassword(password);
         if (!passVal.valid) newErrors.password = passVal.message;
@@ -48,8 +52,9 @@ function SignUp() {
             id: Date.now().toString(),
             name,
             email,
+            bank,
             password,
-            profileImage: "/images/default_user.png", // Fixed key name to match Navbar
+            profileImage: "/images/default_user.png",
             balance: 0,
             totalDeposit: 0,
             totalWithDraw: 0
@@ -70,6 +75,7 @@ function SignUp() {
             setConfirm('');
             setName('');
             setEmail('');
+            setBank('');
             setPassword('');
             setErrors({});
 
@@ -105,11 +111,11 @@ function SignUp() {
                     {errors.name && <span className="field-error">{errors.name}</span>}
 
                     <label htmlFor="email">Email</label>
-                    <input 
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        placeholder="Enter your email" 
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter your email"
                         value={email}
                         onChange={(e) => {
                             setEmail(e.target.value);
@@ -118,6 +124,26 @@ function SignUp() {
                         autoComplete="email"
                     />
                     {errors.email && <span className="field-error">{errors.email}</span>}
+
+
+                    <label htmlFor="bank">Select Bank</label>
+                    <select 
+                    name="bank" 
+                    id="bank"
+                    onChange={(e)=> {
+                        setBank(e.target.value);
+                        if(errors.bank) setErrors({...errors, bank: null});
+                    }}
+                    >
+                        <option value="no">-- Select Bank --</option>
+                        <option value="hbl">HBL Bank</option>
+                        <option value="ubl">UBL Bank</option>
+                        <option value="meezan">Meezan Bank</option>
+                        <option value="faisal">Faisal Bank</option>
+                    </select>
+                    {errors.bank && <span className="field-error">{errors.bank}</span>}
+
+
 
                     <label htmlFor="password">Password</label>
                     <input 

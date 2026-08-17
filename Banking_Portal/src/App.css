@@ -575,7 +575,7 @@
   margin-bottom: 4px;
 }
 
-.signup-container input {
+.signup-container input, .signup-container #bank {
   display: block;
   width: 100%;
   padding: 1rem 0.5rem;
@@ -688,7 +688,7 @@
 .bname {
   width: 100%;
   padding: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -734,7 +734,7 @@
 
 .info h3 {
   color: var(--color-white);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
 .info p {

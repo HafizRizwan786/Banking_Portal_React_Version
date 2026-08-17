@@ -50,3 +50,11 @@ export const validateAmount = (amount) => {
   }
   return { valid: true, message: '' };
 };
+
+
+export const validateBank = (bank)=>{
+  if(!bank || bank==='no'){
+    return {valid: false, message: 'Please select a bank'}
+  }
+  return {valid: true, message: ''}
+}
